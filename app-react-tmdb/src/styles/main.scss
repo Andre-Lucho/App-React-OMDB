@@ -1,6 +1,20 @@
 *,
 *::after,
-*::before {
+*::before,
+body,
+h1,
+h2,
+h3,
+div,
+p,
+a,
+li,
+ul,
+label,
+input,
+button {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -16,10 +30,12 @@ html {
 }
 
 body {
-  margin: 1.5rem;
   background-color: #171f2b;
   color: azure;
   font-size: 1.1rem;
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto;
 }
 
 body,
@@ -36,42 +52,26 @@ h3 {
   font-family: var(--font-title);
 }
 
-h1,
-h2,
-h3,
-p,
-ul {
-  margin: 1rem 0;
-}
-
-ul {
-  list-style: square;
-}
-
 a {
   text-decoration: none;
   color: #eee;
 }
 
 li {
-  margin-bottom: 0.5rem;
   list-style: none;
 }
 
 label {
+  padding: 0 50px;
   display: block;
-  margin-bottom: 0.5rem;
-  margin-top: 0.5rem;
 }
 
 input,
 textarea {
   display: block;
+  padding: 8px;
   border: 1px solid #ccc;
   width: 100%;
-  padding: 0.8rem;
-  margin-bottom: 0.8rem;
-
   border-radius: var(--radius);
   background: #eee;
   transition: 0.2s;
@@ -93,7 +93,6 @@ button {
   background: var(--color);
   color: var(--color-dark);
   padding: 0.8rem 1.6rem;
-  margin-left: 0.4rem;
   font-weight: bold;
   font-size: 0.8em;
 }
@@ -116,19 +115,51 @@ button:disabled {
 
 hr {
   border: 2px solid black;
-  margin: 2rem auto;
 }
 
-.div-produtos {
-  max-width: 500px;
-  border: 1px solid;
-  margin: 20px 0;
+.main-container {
+  display: grid;
+  grid-template:
+    'header' 1fr
+    'dashboard' 2fr
+    'footer' 1fr;
+  height: 100dvh;
 }
 
-.div-produtos h2 {
-  margin-left: 1rem;
+.header-container {
+  grid-area: header;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 30px 0;
+
+  .logo {
+    padding: 10px;
+    a {
+      padding: 10px;
+    }
+  }
+
+  .nav-container {
+    display: flex;
+    padding: 10px;
+    a {
+      padding: 10px;
+    }
+  }
+
+  .search-container {
+    display: flex;
+    border: 1px solid;
+    max-width: 600px;
+    flex-grow: 1;
+  }
 }
 
-.div-produtos ul {
-  margin-left: 1rem;
+.dashboard-container {
+  grid-area: dashboard;
+}
+
+.footer-container {
+  grid-area: footer;
 }
