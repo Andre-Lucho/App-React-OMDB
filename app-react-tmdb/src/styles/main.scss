@@ -28,7 +28,7 @@ html {
   --color: #19f;
   --color-light: #adf;
   --color-dark: #018;
-  // --radius: 0.5rem;
+  --radius: 0.5rem;
 }
 
 body {
@@ -62,105 +62,111 @@ li {
   list-style: none;
 }
 
-button {
-  cursor: pointer;
-  border: none;
-  border-radius: var(--radius);
-  transition: 0.1s;
-  background: var(--color);
-  color: var(--color-dark);
-  font-weight: bold;
-  font-size: 0.8em;
-}
-
-button:hover,
-button:focus {
-  background: var(--color);
-  box-shadow: 0 0 0 3px var(--color-light), 0 0 0 4px var(--color);
-  outline: none;
-}
-
-button:active {
-  box-shadow: 0 0 0 3px var(--color), 0 0 0 4px var(--color);
-}
-
-button:disabled {
-  opacity: 0.5;
-  cursor: wait;
-}
-
 .main-container {
   display: grid;
   grid-template:
-    'header button' 0.4fr
-    'dashboard dashboard' 2fr
-    'footer footer' 1fr
-    / 100% 1fr;
+    'header' 0.8fr
+    'dashboard' 2fr
+    'footer' 1fr
+    / 1fr 1fr 1fr;
   height: 100dvh;
 }
 
 .header-container {
   grid-area: header;
   display: flex;
+  width: 100vw;
   align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 
-  .header-inner-container {
-    padding: 0 10px 20px 0;
-    flex-grow: 1;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    .logo {
-      padding: 50px 20px;
-      a {
-        padding: 10px;
-      }
-    }
-    .nav-container {
-      display: flex;
-      padding: 20px;
-      li {
-        margin: 0 15px;
-      }
-      a {
-        padding: 10px;
-      }
-    }
-    .search-container {
-      display: flex;
-      max-width: 500px;
-      flex-grow: 1;
-
-      label {
-        padding: 10px 20px;
-        display: block;
-      }
-
-      input {
-        display: block;
-        border: 1px solid #ccc;
-        width: 100%;
-        border-radius: var(--radius);
-        background: #eee;
-        transition: 0.2s;
-      }
-      input:focus {
-        outline: none;
-        border-color: var(--color);
-        background: white;
-        box-shadow: 0 0 0 3px var(--color-light);
-      }
+  .logo {
+    margin: 0 20px;
+    padding: 50px 20px;
+    a {
+      padding: 10px;
     }
   }
 
-  .search-button {
-    grid-area: button;
-    display: block;
+  .nav-container {
+    display: flex;
+    margin: 0 20px;
+
+    padding: 20px;
+    li {
+      margin: 0 15px;
+    }
+    a {
+      padding: 10px;
+    }
+  }
+
+  .search-container {
+    display: flex;
+    max-width: 600px;
     align-items: center;
     flex: 1;
-    margin: 0 20px;
-    height: 50px;
-    // max-width: 100px;
+
+    label {
+      padding: 10px 20px;
+      display: block;
+    }
+
+    input {
+      display: block;
+      min-width: 350px;
+      min-height: 50px;
+      border: 1px solid #ccc;
+      border-radius: var(--radius);
+      background: #eee;
+      transition: 0.2s;
+      flex: 1;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--color);
+      background: white;
+      box-shadow: 0 0 0 3px var(--color-light);
+    }
+
+    input::placeholder {
+      font-size: 0.9rem;
+      padding-left: 6px;
+    }
+
+    button {
+      display: block;
+      flex: 1;
+      padding: 0 20px;
+      margin: 0 20px;
+      min-height: 50px;
+      min-width: 100px;
+      cursor: pointer;
+      border: none;
+      border-radius: var(--radius);
+      transition: 0.1s;
+      background: var(--color);
+      color: var(--color-dark);
+      font-weight: bold;
+      font-size: 0.8em;
+    }
+
+    button:hover,
+    button:focus {
+      background: var(--color);
+      box-shadow: 0 0 0 3px var(--color-light), 0 0 0 4px var(--color);
+      outline: none;
+    }
+
+    button:active {
+      box-shadow: 0 0 0 3px var(--color), 0 0 0 4px var(--color);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: wait;
+    }
   }
 }
 

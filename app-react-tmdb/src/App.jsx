@@ -4,22 +4,15 @@ import Footer from './components/Footer';
 import Dashboard from './components/Dashboard';
 
 function App() {
-  const [userInput, setUserInput] = useState(null);
+  const [userData, setUserData] = useState(null);
   const [load, setLoad] = useState(true);
-  const query = useRef();
+
+  const handleSearch = (query) => setUserData(query);
 
   return (
     <main className="main-container">
-      <section className="header-container">
-        <Header ref={query} />
-        <button
-          onClick={() => setUserInput(query.current.value)}
-          className="search-button"
-        >
-          Go!
-        </button>
-      </section>
-      <Dashboard userInput={userInput} />
+      <Header onSearch={handleSearch} />
+      <Dashboard userData={userData} />
       <Footer />
     </main>
   );

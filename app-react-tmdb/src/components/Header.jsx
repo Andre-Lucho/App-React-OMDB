@@ -1,10 +1,21 @@
 import { useState, useRef } from 'react';
 
-const Header = ({ ref }) => {
+const Header = ({ onSearch }) => {
+  const [userInput, setUserInput] = useState('');
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (userInput.trim()) {
+      onSearch(userInput);
+    }
+  };
+
   return (
-    <div className="header-inner-container" id="home">
+    <div className="header-container" id="home">
       <div className="logo">
-        <a href="#home">APP TMDB</a>
+        <h2>
+          <a href="#home">APP OMDB</a>
+        </h2>
       </div>
       <nav>
         <ul className="nav-container">
@@ -21,10 +32,17 @@ const Header = ({ ref }) => {
           </li>
         </ul>
       </nav>
-      <div className="search-container">
+      <form className="search-container" onSubmit={handleSearch}>
         <label htmlFor="search">Search</label>
-        <input type="text" id="search" ref={ref} />
-      </div>
+        <input
+          type="text"
+          id="search"
+          value={userInput}
+          onChange={({ target }) => setUserInput(target.value)}
+          placeholder="Search for a movie..."
+        />
+        <button type="submit">Go!</button>
+      </form>
     </div>
   );
 };

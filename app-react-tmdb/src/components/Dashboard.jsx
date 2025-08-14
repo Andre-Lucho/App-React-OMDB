@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const Dashboard = ({ userInput }) => {
+const Dashboard = ({ userData }) => {
   const [data, setData] = useState(null);
   const [movies, setMovies] = useState(null);
 
@@ -9,10 +9,10 @@ const Dashboard = ({ userInput }) => {
 
   useEffect(() => {
     const handleData = async () => {
-      if (userInput) {
+      if (userData) {
         try {
           const response = await axios.get(
-            `http://www.omdbapi.com/?apikey=${omdbKey}&s=${userInput}`,
+            `http://www.omdbapi.com/?apikey=${omdbKey}&s=${userData}`,
           );
           setData(response.data);
         } catch (error) {
@@ -21,7 +21,7 @@ const Dashboard = ({ userInput }) => {
       }
     };
     handleData();
-  }, [userInput]);
+  }, [userData]);
 
   // 2. com um botal e modal --> fazer novo fetch e utilizar o param &t para pegar detalhes do filme
 
