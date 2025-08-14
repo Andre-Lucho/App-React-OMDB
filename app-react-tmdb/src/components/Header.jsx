@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 
 const Header = ({ ref }) => {
   return (
-    <div className="header-container" id="home">
+    <div className="header-inner-container" id="home">
       <div className="logo">
         <a href="#home">APP TMDB</a>
       </div>

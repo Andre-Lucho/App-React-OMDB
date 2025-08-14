@@ -9,12 +9,19 @@ function App() {
   const query = useRef();
 
   return (
-    <div className="main-container">
-      <Header ref={query} />
-      <button onClick={() => setUserInput(query.current.value)}></button>
+    <main className="main-container">
+      <section className="header-container">
+        <Header ref={query} />
+        <button
+          onClick={() => setUserInput(query.current.value)}
+          className="search-button"
+        >
+          Go!
+        </button>
+      </section>
       <Dashboard userInput={userInput} />
       <Footer />
-    </div>
+    </main>
   );
 }
 
