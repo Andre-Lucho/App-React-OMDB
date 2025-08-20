@@ -1,55 +1,40 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useContext, useEffect, useState } from 'react';
+import { GlobalContext } from './GlobalContext';
 
-const Dashboard = ({ userData }) => {
-  const [data, setData] = useState(null);
-  const [movies, setMovies] = useState(null);
-
-  const omdbKey = 'aae27b86';
+const Dashboard = () => {
+  const [movieData, setMovieData] = useState(null);
+  const context = useContext(GlobalContext);
 
   useEffect(() => {
-    const handleData = async () => {
-      if (userData) {
-        try {
-          const response = await axios.get(
-            `http://www.omdbapi.com/?apikey=${omdbKey}&s=${userData}`,
-          );
-          setData(response.data);
-        } catch (error) {
-          console.error('Erro ao buscar dados:', error);
-        }
-      }
-    };
-    handleData();
-  }, [userData]);
-
-  // 2. com um botal e modal --> fazer novo fetch e utilizar o param &t para pegar detalhes do filme
-
-  useEffect(() => {
-    if (data) {
-      const moviesData = data.Search.map((movie) => {
+    if (context.fetchData) {
+      const moviesData = context.fetchData.Search.map((movie) => {
         const { Title, Year, Poster } = movie;
         const movies = {
-          Title,
-          Year,
-          Poster,
+          Title: Title,
+          Year: Year,
+          Poster: Poster,
         };
         return movies;
       });
-      setMovies(moviesData);
-    }
-  }, [data]);
 
+      setMovieData(moviesData);
+    }
+  }, [context.fetchData]);
+
+  if (context.error) return <p>{context.error}</p>;
+  if (context.loading) return <p>Carregando....</p>;
   return (
     <div className="dashboard-container">
       <ul className="galery-container">
-        {movies &&
-          movies.map((movie, i) => (
+        {movieData &&
+          movieData.map((movie, i) => (
             <li key={i} className="img-container">
-              <img src={movie.Poster} alt="" />
-              <span>{movie.Title}</span>
-              <span>{movie.Year}</span>
-              <a>More Info</a>
+              <img src={movie.Poster} alt="" className="img-imagem" />
+              <figcaption className="img-legenda">
+                <span>{movie.Title}</span>
+                <p>{movie.Year}</p>
+                <button>More Info</button>
+              </figcaption>
             </li>
           ))}
       </ul>
@@ -58,3 +43,5 @@ const Dashboard = ({ userData }) => {
 };
 
 export default Dashboard;
+
+// 2. com um botal e modal --> fazer novo fetch e utilizar o param &t para pegar detalhes do filme
