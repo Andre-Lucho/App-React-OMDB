@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import { GlobalStorage } from './components/GlobalContext';
 import Header from './components/Header';
 import Footer from './components/Footer';

@@ -1,14 +1,16 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { GlobalContext } from './GlobalContext';
 
 const Form = () => {
   const context = useContext(GlobalContext);
 
   async function handleSubmit(e) {
-    e.preventDefault();
-    await context.request(
-      `http://www.omdbapi.com/?apikey=${context.omdbKey}&s=${context.userInput}`,
-    );
+    if (context.omdbKey) {
+      e.preventDefault();
+      await context.request(
+        `http://www.omdbapi.com/?apikey=${context.omdbKey}&s=${context.userInput}`,
+      );
+    }
   }
 
   // useEffect(() => {

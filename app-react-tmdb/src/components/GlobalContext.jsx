@@ -9,7 +9,7 @@ export const GlobalStorage = ({ children }) => {
   const [userInput, setUserInput] = useState('');
 
   const { request, fetchData, loading, error } = useFetch();
-  const omdbKey = 'aae27b86';
+  const omdbKey = import.meta.env.VITE_API_KEY;
   // const handleFetch = Fetch;
   // const handleFetchTimer = FetchTimer;
 
