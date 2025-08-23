@@ -7,13 +7,15 @@ export const GlobalStorage = ({ children }) => {
   const [userInput, setUserInput] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const omdbKey = import.meta.env.VITE_API_KEY;
-  const resultsPerPage = 10; // OMDB API returns 10 results per page
+  const [movieData, setMovieData] = useState(null);
 
   const { request, fetchData, loading, error, response, jsonReturn } =
     useFetch();
 
-  // Calculate total pages when jsonReturn changes
+  const omdbKey = import.meta.env.VITE_API_KEY;
+  const resultsPerPage = 10;
+
+  // Calcula o total de paginass qd jsonReturn se atualiza
   useEffect(() => {
     if (jsonReturn && jsonReturn.totalResults) {
       const totalResults = parseInt(jsonReturn.totalResults, 10);
@@ -23,7 +25,11 @@ export const GlobalStorage = ({ children }) => {
 
   const newFetch = async (e) => {
     if (omdbKey) {
-      e.preventDefault();
+      // Verifica se e é um evento real antes de chamar preventDefault
+      if (e && typeof e.preventDefault === 'function') {
+        e.preventDefault();
+      }
+
       await request(
         `http://www.omdbapi.com/?apikey=${omdbKey}&s=${userInput}&page=${currentPage}`,
       );
@@ -34,13 +40,14 @@ export const GlobalStorage = ({ children }) => {
     <GlobalContext.Provider
       value={{
         setUserInput,
-        setCurrentPage,
         request,
         newFetch,
-        userInput,
-        currentPage,
+        setMovieData,
         setCurrentPage,
+        userInput,
+        movieData,
         fetchData,
+        currentPage,
         loading,
         error,
         response,

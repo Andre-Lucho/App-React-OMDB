@@ -4,10 +4,7 @@ import Loading from '../assets/Loading/Loading';
 
 const Dashboard = () => {
   const context = useContext(GlobalContext);
-  const { loading, error, fetchData } = context;
-
-  const [movieData, setMovieData] = useState(null);
-  const [modal, setModal] = useState(null);
+  const { movieData, setMovieData, loading, error, fetchData } = context;
 
   useEffect(() => {
     if (loading || error) {
@@ -24,6 +21,10 @@ const Dashboard = () => {
       setMovieData(moviesData);
     }
   }, [fetchData, loading, error]);
+
+  useEffect(() => {
+    console.log(movieData);
+  }, [fetchData]);
 
   if (error)
     return (

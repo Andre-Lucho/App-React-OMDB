@@ -7,19 +7,25 @@ const Footer = () => {
   const { fetchData, currentPage, setCurrentPage, totalPages, newFetch } =
     context;
 
-  const handleNextPage = (e) => {
+  const handleNextPage = async () => {
     if (fetchData && currentPage < totalPages) {
       setCurrentPage((prev) => prev + 1);
-      newFetch(e);
     }
   };
 
-  const handlePrevPage = (e) => {
+  const handlePrevPage = () => {
     if (fetchData && currentPage > 1) {
       setCurrentPage((prev) => prev - 1);
-      newFetch(e);
     }
   };
+
+  // Atualiza os dados quando a página muda
+  useEffect(() => {
+    if (fetchData) {
+      const event = { preventDefault: () => {} };
+      newFetch(event);
+    }
+  }, [currentPage]);
 
   if (totalPages > 1) {
     return (
