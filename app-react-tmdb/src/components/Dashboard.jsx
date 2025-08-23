@@ -3,51 +3,46 @@ import { GlobalContext } from './GlobalContext';
 import Loading from '../assets/Loading/Loading';
 
 const Dashboard = () => {
+  const context = useContext(GlobalContext);
+  const { loading, error, fetchData } = context;
+
   const [movieData, setMovieData] = useState(null);
   const [modal, setModal] = useState(null);
-  const context = useContext(GlobalContext);
 
   useEffect(() => {
-    if (context.loading || context.error) setMovieData(null);
-    if (context.fetchData && context.fetchData.Response === 'True') {
-      const moviesData = context.fetchData.Search.map((movie) => {
+    if (loading || error) {
+      setMovieData(null);
+    } else if (fetchData && fetchData.Response === 'True') {
+      const moviesData = fetchData.Search.map((movie) => {
         const { Title, Year, Poster } = movie;
-        const movies = {
+        return {
           Title: Title,
           Year: Year,
           Poster: Poster,
         };
-        return movies;
       });
-
       setMovieData(moviesData);
     }
-  }, [context.fetchData, context.loading, context.error]);
+  }, [fetchData, loading, error]);
 
-  //
-  // Ver renderização da busca antiga(após sucesso), mesmo com a mudança no código acima
-  //
-
-  useEffect(() => {
-    context.fetchData
-      ? console.log(context.response)
-      : console.log(context.error);
-  }, [context.fetchData]);
-
-  if (context.error)
+  if (error)
     return (
       <div className="erro-container">
         <p>Erro na requisição!</p>
-        <p>Página não encontrada</p>
+        <p>{error.message}</p>
       </div>
     );
 
-  if (context.loading)
+  if (loading)
     return (
       <>
         <Loading />
       </>
     );
+
+  if (!fetchData || fetchData.Response !== 'True') {
+    return null;
+  }
 
   return (
     <div className="dashboard-container">
@@ -55,7 +50,11 @@ const Dashboard = () => {
         {movieData &&
           movieData.map((movie, i) => (
             <li key={i} className="img-container">
-              <img src={movie.Poster} alt="" className="img-imagem" />
+              <img
+                src={movie.Poster}
+                alt={movie.Title}
+                className="img-imagem"
+              />
               <figcaption className="img-legenda">
                 <span>{movie.Title}</span>
                 <p>{movie.Year}</p>

@@ -4,23 +4,15 @@ import Button from '../assets/Button/Button';
 
 const Form = () => {
   const context = useContext(GlobalContext);
-
-  async function handleSubmit(e) {
-    if (context.omdbKey) {
-      e.preventDefault();
-      const result = await context.request(
-        `http://www.omdbapi.com/?apikey=${context.omdbKey}&s=${context.userInput}`,
-      );
-    }
-  }
+  const { userInput, setUserInput, newFetch } = context;
 
   return (
-    <form className="search-container" onSubmit={handleSubmit}>
+    <form className="search-container" onSubmit={(e) => newFetch(e)}>
       <input
         type="text"
         id="search"
-        value={context.userInput}
-        onChange={({ target }) => context.setUserInput(target.value)}
+        value={userInput}
+        onChange={({ target }) => setUserInput(target.value)}
         placeholder="Search for a movie..."
       />
       <Button />

@@ -1,17 +1,21 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { GlobalContext } from '../GlobalContext';
 
 export const Fetch = () => {
   const context = useContext(GlobalContext);
 
+  const { omdbKey, request, userInput, setUserInput, currentPage, totalPages } =
+    context;
+
   async function handleFetch(e) {
-    e.preventDefault();
-    await context.request(
-      `http://www.omdbapi.com/?apikey=${context.omdbKey}&s=${context.userInput}`,
-    );
+    if (omdbKey) {
+      e.preventDefault();
+      const result = await context.request(
+        `http://www.omdbapi.com/?apikey=${omdbKey}&s=${userInput}&page=${currentPage}`,
+      );
+      // totalPages = result.json.totalResults;
+
+      return totalPages;
+    }
   }
 };
-
-// useEffect(() => {
-
-// }, [context.userInput]);

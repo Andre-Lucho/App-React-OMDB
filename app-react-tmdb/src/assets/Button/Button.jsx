@@ -3,10 +3,10 @@ import './button.scss';
 
 const Button = () => {
   return (
-    <button class="button" type="submit">
-      <span class="shadow"></span>
-      <span class="edge"></span>
-      <div class="front">
+    <button className="button" type="submit">
+      <span className="shadow"></span>
+      <span className="edge"></span>
+      <div className="front">
         <span>Serch</span>
       </div>
     </button>
