@@ -8,20 +8,12 @@ const Header = () => {
           <a href="#home">APP OMDB</a>
         </h2>
       </div>
-      <nav>
-        <ul className="nav-container">
-          <li>
-            <a href="#home">Home</a>
-          </li>
-          <li>
-            <a href="#home">Home</a>
-          </li>
-          <li>
-            <a href="#home">Home</a>
-          </li>
-        </ul>
-        <Form />
+      <nav className="nav-container">
+        <li>
+          <a href="#home">Home</a>
+        </li>
       </nav>
+      <Form />
     </div>
   );
 };

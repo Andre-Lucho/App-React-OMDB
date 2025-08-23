@@ -8,7 +8,8 @@ export const GlobalContext = createContext();
 export const GlobalStorage = ({ children }) => {
   const [userInput, setUserInput] = useState('');
 
-  const { request, fetchData, loading, error } = useFetch();
+  const { request, fetchData, loading, error, response, jsonReturn } =
+    useFetch();
   const omdbKey = import.meta.env.VITE_API_KEY;
   // const handleFetch = Fetch;
   // const handleFetchTimer = FetchTimer;
@@ -23,6 +24,8 @@ export const GlobalStorage = ({ children }) => {
         loading,
         error,
         omdbKey,
+        response,
+        jsonReturn,
         // handleFetch,
         // handleFetchTimer,
       }}

@@ -1,12 +1,15 @@
 import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from './GlobalContext';
+import Loading from '../assets/Loading/Loading';
 
 const Dashboard = () => {
   const [movieData, setMovieData] = useState(null);
+  const [modal, setModal] = useState(null);
   const context = useContext(GlobalContext);
 
   useEffect(() => {
-    if (context.fetchData) {
+    if (context.loading || context.error) setMovieData(null);
+    if (context.fetchData && context.fetchData.Response === 'True') {
       const moviesData = context.fetchData.Search.map((movie) => {
         const { Title, Year, Poster } = movie;
         const movies = {
@@ -19,10 +22,33 @@ const Dashboard = () => {
 
       setMovieData(moviesData);
     }
+  }, [context.fetchData, context.loading, context.error]);
+
+  //
+  // Ver renderização da busca antiga(após sucesso), mesmo com a mudança no código acima
+  //
+
+  useEffect(() => {
+    context.fetchData
+      ? console.log(context.response)
+      : console.log(context.error);
   }, [context.fetchData]);
 
-  if (context.error) return <p>{context.error}</p>;
-  if (context.loading) return <p>Carregando....</p>;
+  if (context.error)
+    return (
+      <div className="erro-container">
+        <p>Erro na requisição!</p>
+        <p>Página não encontrada</p>
+      </div>
+    );
+
+  if (context.loading)
+    return (
+      <>
+        <Loading />
+      </>
+    );
+
   return (
     <div className="dashboard-container">
       <ul className="galery-container">
