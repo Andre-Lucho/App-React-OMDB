@@ -1,48 +1,58 @@
-import { useState, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { GlobalContext } from './GlobalContext';
-import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const Modal = () => {
-  const [modalData, setModalData] = useState(null);
-
   const context = useContext(GlobalContext);
-  const { movieData, omdbKey, fetchData } = context;
+  const { omdbKey, loading } = context;
 
-  const handleModal = async (e) => {
-    if (movieData) {
-      // Verifica se e é um evento real antes de chamar preventDefault
-      if (e && typeof e.preventDefault === 'function') {
-        e.preventDefault();
+  const { title } = useParams();
+
+  const [modalFetch, setModalFetch] = useState(null);
+
+  useEffect(() => {
+    const fetchModal = async () => {
+      const decodedTitle = decodeURIComponent(title);
+      if (decodedTitle) {
+        const response = await axios.get(
+          `http://www.omdbapi.com/?apikey=${omdbKey}&t=${decodedTitle}`,
+        );
+        setModalFetch(response.data);
       }
-      await request(
-        `http://www.omdbapi.com/?apikey=${omdbKey}&t=${movieData.Title}`,
-      );
-    }
-  };
+    };
+    fetchModal();
+  }, [title]);
 
   return (
     <div className="modal-container">
-      {/* <ul className="galery-container">
-        {movieData &&
-          movieData.map((movie, i) => (
-            <li key={i} className="img-container">
+      <ul className="galery-container">
+        <li className="img-container">
+          {modalFetch && (
+            <>
               <img
-                src={movie.Poster}
-                alt={movie.Title}
+                src={modalFetch.Poster}
+                alt={modalFetch.Title}
                 className="img-imagem"
               />
               <figcaption className="img-legenda">
-                <span>{movie.Title}</span>
-                <p>{movie.Year}</p>
-                <button>More Info</button>
+                <span>Título: {modalFetch.Title}</span>
+                <span>Ano: {modalFetch.Year}</span>
+                <span>Lançamento: {modalFetch.Released}</span>
+                <span>Gênero: {modalFetch.Genre}</span>
+                <span>Diretor(s): {modalFetch.Director}</span>
+                <span>Elenco: {modalFetch.Actores}</span>
+                <span>Sinopse: {modalFetch.Plot}</span>
+                <span>País: {modalFetch.Country}</span>
+                <span>Classificação IMBD: {modalFetch.imdbRating}</span>
+                <span>Premiações: {modalFetch.Awards}</span>
               </figcaption>
-            </li>
-          ))}
-      </ul> */}
+            </>
+          )}
+        </li>
+      </ul>
     </div>
   );
 };
 
 export default Modal;
-
-// olhar projeto felinos selvagens e ver correspondencias efeitos - arrays

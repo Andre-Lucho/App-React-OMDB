@@ -10,11 +10,12 @@ function App() {
     <main className="main-container">
       <BrowserRouter>
         <GlobalStorage>
+          <Header />
           <Routes>
             {/* <Head title="Home" description="home" /> */}
             <Route path="/" element={<Header />} />
             <Route path="dashboard" element={<Dashboard />} />
-            {/* <Route path="modal" element={<Modal />} /> */}
+            <Route path="modal/:title" element={<Modal />} />
             {/* <Route path="favoritos" element={<Favoritos />} /> */}
           </Routes>
           <Footer />

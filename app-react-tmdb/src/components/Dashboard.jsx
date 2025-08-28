@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { GlobalContext } from './GlobalContext';
 import axios from 'axios';
 
@@ -9,14 +9,22 @@ const Dashboard = () => {
   const context = useContext(GlobalContext);
   const { omdbKey, loading } = context;
 
-  const [movieFetch, setMovieFetch] = useState(null);
-  const [movieData, setMovieData] = useState(null);
-
-  // const [currentPage, setCurrentPage] = useState(1);
-  const [error, setError] = useState(null);
-
   const location = useLocation();
   const input = location.state?.input;
+  const navigate = useNavigate();
+
+  const [movieFetch, setMovieFetch] = useState(null);
+  const [movieData, setMovieData] = useState(null);
+  const [error, setError] = useState(null);
+
+  const resultsPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handleDashSubmit = (movieTitle) => {
+    if (movieTitle) {
+      navigate(`/modal/${movieTitle}`);
+    }
+  };
 
   useEffect(() => {
     const newFetch = async () => {
@@ -27,7 +35,6 @@ const Dashboard = () => {
         setError(`Por Favor, digite um termo para a busca!`);
         return;
       }
-
       try {
         response = await axios.get(
           `http://www.omdbapi.com/?apikey=${omdbKey}&s=${input}&page=${1}`,
@@ -77,7 +84,9 @@ const Dashboard = () => {
               <figcaption className="img-legenda">
                 <span>{movie.Title}</span>
                 <p>{movie.Year}</p>
-                <button>More Info</button>
+                <button onClick={() => handleDashSubmit(movie.Title)}>
+                  More Info
+                </button>
               </figcaption>
             </li>
           ))}
@@ -89,3 +98,7 @@ const Dashboard = () => {
 export default Dashboard;
 
 // 2. com um botal e modal --> fazer novo fetch e utilizar o param &t para pegar detalhes do filme
+
+{
+  /* <Link to={`modal/:${movie.Title}`} key={movie.Title}></Link>; */
+}

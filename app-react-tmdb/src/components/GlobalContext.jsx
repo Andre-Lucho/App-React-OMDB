@@ -9,7 +9,6 @@ export const GlobalStorage = ({ children }) => {
   const { request, fetchData, loading, error } = useFetch();
 
   const omdbKey = import.meta.env.VITE_API_KEY;
-  const resultsPerPage = 10;
 
   // Calcula o total de paginas qd jsonReturn se atualiza
   // useEffect(() => {

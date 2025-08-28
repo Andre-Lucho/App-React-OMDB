@@ -1,8 +1,6 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import Button from '../assets/Button/Button';
-import Loading from '../assets/Loading/Loading';
 
 const Form = () => {
   const [userInput, setUserInput] = useState('');
