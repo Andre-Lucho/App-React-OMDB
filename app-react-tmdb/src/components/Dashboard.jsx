@@ -1,49 +1,67 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import { GlobalContext } from './GlobalContext';
+import axios from 'axios';
+
 import Loading from '../assets/Loading/Loading';
 
 const Dashboard = () => {
   const context = useContext(GlobalContext);
-  const { movieData, setMovieData, loading, error, fetchData } = context;
+  const { omdbKey, loading } = context;
+
+  const [movieFetch, setMovieFetch] = useState(null);
+  const [movieData, setMovieData] = useState(null);
+
+  // const [currentPage, setCurrentPage] = useState(1);
+  const [error, setError] = useState(null);
+
+  const location = useLocation();
+  const input = location.state?.input;
 
   useEffect(() => {
-    if (loading || error) {
-      setMovieData(null);
-    } else if (fetchData && fetchData.Response === 'True') {
-      const moviesData = fetchData.Search.map((movie) => {
+    const newFetch = async () => {
+      setError(null);
+      let response;
+
+      if (!omdbKey || !input) {
+        setError(`Por Favor, digite um termo para a busca!`);
+        return;
+      }
+
+      try {
+        response = await axios.get(
+          `http://www.omdbapi.com/?apikey=${omdbKey}&s=${input}&page=${1}`,
+        );
+        setMovieFetch(response.data);
+      } catch (erro) {
+        setError(`Erro ao carregar dados: ${erro.message}`);
+      }
+    };
+    newFetch();
+  }, [input]);
+
+  useEffect(() => {
+    if (movieFetch) {
+      let data = movieFetch.Search.map((movie) => {
         const { Title, Year, Poster } = movie;
         return {
-          Title: Title,
-          Year: Year,
-          Poster: Poster,
+          Title,
+          Year,
+          Poster,
         };
       });
-      setMovieData(moviesData);
+      setMovieData(data);
     }
-  }, [fetchData, loading, error]);
+  }, [movieFetch]);
 
-  useEffect(() => {
-    console.log(movieData);
-  }, [fetchData]);
+  if (loading) return <Loading />;
 
   if (error)
     return (
       <div className="erro-container">
-        <p>Erro na requisição!</p>
-        <p>{error.message}</p>
+        <p>Erro ao carregar os dados! Faça uma nova busca...</p>
       </div>
     );
-
-  if (loading)
-    return (
-      <>
-        <Loading />
-      </>
-    );
-
-  if (!fetchData || fetchData.Response !== 'True') {
-    return null;
-  }
 
   return (
     <div className="dashboard-container">

@@ -1,3 +1,4 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { GlobalStorage } from './components/GlobalContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -6,14 +7,20 @@ import Modal from './components/Modal';
 
 function App() {
   return (
-    <GlobalStorage>
-      <main className="main-container">
-        <Header />
-        <Dashboard />
-        {/* <Modal /> */}
-        <Footer />
-      </main>
-    </GlobalStorage>
+    <main className="main-container">
+      <BrowserRouter>
+        <GlobalStorage>
+          <Routes>
+            {/* <Head title="Home" description="home" /> */}
+            <Route path="/" element={<Header />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            {/* <Route path="modal" element={<Modal />} /> */}
+            {/* <Route path="favoritos" element={<Favoritos />} /> */}
+          </Routes>
+          <Footer />
+        </GlobalStorage>
+      </BrowserRouter>
+    </main>
   );
 }
 
