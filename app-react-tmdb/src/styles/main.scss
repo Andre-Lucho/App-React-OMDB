@@ -140,8 +140,8 @@ li {
 
   .galery-container {
     display: grid;
-    grid-template-columns: repeat(3, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(3, minmax(200px, 400px));
+    gap: 15px;
     padding: 20px;
     justify-items: center;
   }

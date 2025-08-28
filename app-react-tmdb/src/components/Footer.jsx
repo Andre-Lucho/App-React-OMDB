@@ -1,5 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { GlobalContext } from './GlobalContext';
+import { MdArrowBackIos } from 'react-icons/md'; // <MdArrowBackIos />
+import { MdArrowForwardIos } from 'react-icons/md'; //<MdArrowForwardIos />
 
 const Footer = () => {
   const context = useContext(GlobalContext);

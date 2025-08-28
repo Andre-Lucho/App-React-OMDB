@@ -1,22 +1,33 @@
-import { useContext } from 'react';
-import { GlobalContext } from './GlobalContext';
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Button from '../assets/Button/Button';
+import Loading from '../assets/Loading/Loading';
 
 const Form = () => {
-  const context = useContext(GlobalContext);
-  const { userInput, setUserInput, newFetch } = context;
+  const [userInput, setUserInput] = useState('');
+  const navigate = useNavigate();
+
+  const handleFormSubmit = (e) => {
+    if (e && typeof e.preventDefault === 'function') {
+      e.preventDefault();
+      navigate('/dashboard', { state: { input: userInput } });
+    }
+  };
 
   return (
-    <form className="search-container" onSubmit={(e) => newFetch(e)}>
-      <input
-        type="text"
-        id="search"
-        value={userInput}
-        onChange={({ target }) => setUserInput(target.value)}
-        placeholder="Search for a movie..."
-      />
-      <Button />
-    </form>
+    <div>
+      <form className="search-container" onSubmit={(e) => handleFormSubmit(e)}>
+        <input
+          type="text"
+          id="search"
+          value={userInput}
+          onChange={({ target }) => setUserInput(target.value)}
+          placeholder="Buscar filme..."
+        />
+        <Button />
+      </form>
+    </div>
   );
 };
 
