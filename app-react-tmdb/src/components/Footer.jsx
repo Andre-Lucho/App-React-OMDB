@@ -1,13 +1,12 @@
 import { useContext, useEffect } from 'react';
-import { GlobalContext } from './GlobalContext';
+// import { GlobalContext } from './GlobalContext';
 import { MdArrowBackIos } from 'react-icons/md'; // <MdArrowBackIos />
 import { MdArrowForwardIos } from 'react-icons/md'; //<MdArrowForwardIos />
 
 const Footer = () => {
-  const context = useContext(GlobalContext);
+  // const context = useContext(GlobalContext);
 
-  const { fetchData, currentPage, setCurrentPage, totalPages, newFetch } =
-    context;
+  // const { movieFetch, currentPage, setCurrentPage, totalPages } = context;
 
   const handleNextPage = async () => {
     if (fetchData && currentPage < totalPages) {
@@ -25,7 +24,7 @@ const Footer = () => {
   useEffect(() => {
     if (fetchData) {
       const event = { preventDefault: () => {} };
-      newFetch(event);
+      // Novo Fetch aqui == Fetch(event);
     }
   }, [currentPage]);
 

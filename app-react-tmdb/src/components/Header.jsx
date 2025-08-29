@@ -1,19 +1,24 @@
+import { Link } from 'react-router-dom';
 import Form from './Form';
+import Favorites from './MyFavorites';
 
 const Header = () => {
   return (
     <div className="header-container" id="home">
-      <div className="logo">
-        <h2>
-          <a href="#home">APP OMDB</a>
-        </h2>
-      </div>
+      <Link to={'/'}>
+        <div className="logo">
+          <li>APP OMDB</li>
+        </div>
+      </Link>
       <nav className="nav-container">
-        <li>
-          <a href="#home">Home</a>
-        </li>
+        <Link to={'/'}>
+          <li>Home</li>
+        </Link>
       </nav>
       <Form />
+      <Link to={'favorites'}>
+        <Favorites />
+      </Link>
     </div>
   );
 };

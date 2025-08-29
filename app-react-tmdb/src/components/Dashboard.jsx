@@ -6,26 +6,26 @@ import axios from 'axios';
 import Loading from '../assets/Loading/Loading';
 
 const Dashboard = () => {
+  // Contexto global
   const context = useContext(GlobalContext);
   const { omdbKey, loading } = context;
 
+  // React-router
   const location = useLocation();
   const input = location.state?.input;
   const navigate = useNavigate();
 
+  // Retorno e tratamento do fetch dasboard
   const [movieFetch, setMovieFetch] = useState(null);
   const [movieData, setMovieData] = useState(null);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(true);
 
+  // Controle de páginas
   const resultsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(null);
 
-  const handleDashSubmit = (movieTitle) => {
-    if (movieTitle) {
-      navigate(`/modal/${movieTitle}`);
-    }
-  };
-
+  // Fetch Dashboard
   useEffect(() => {
     const newFetch = async () => {
       setError(null);
@@ -37,7 +37,7 @@ const Dashboard = () => {
       }
       try {
         response = await axios.get(
-          `http://www.omdbapi.com/?apikey=${omdbKey}&s=${input}&page=${1}`,
+          `http://www.omdbapi.com/?apikey=${omdbKey}&s=${input}&page=${currentPage}`,
         );
         setMovieFetch(response.data);
       } catch (erro) {
@@ -47,6 +47,7 @@ const Dashboard = () => {
     newFetch();
   }, [input]);
 
+  // Tratamento fetch
   useEffect(() => {
     if (movieFetch) {
       let data = movieFetch.Search.map((movie) => {
@@ -61,8 +62,27 @@ const Dashboard = () => {
     }
   }, [movieFetch]);
 
+  useEffect(() => console.log(totalPages), [totalPages]);
+
+  // Cálculo e att do total de paginas retornadas
+  useEffect(() => {
+    if (movieFetch && movieFetch.totalResults) {
+      const totalResults = parseInt(movieFetch.totalResults, 10);
+      setTotalPages(Math.ceil(totalResults / resultsPerPage));
+    }
+  }, [movieFetch]);
+
+  // Router - Mandando 'título' p Modal.jsx
+  const handleDashSubmit = (movieTitle) => {
+    if (movieTitle) {
+      navigate(`/modal/${movieTitle}`);
+    }
+  };
+
+  // Loading
   if (loading) return <Loading />;
 
+  // Error
   if (error)
     return (
       <div className="erro-container">
@@ -96,9 +116,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-// 2. com um botal e modal --> fazer novo fetch e utilizar o param &t para pegar detalhes do filme
-
-{
-  /* <Link to={`modal/:${movie.Title}`} key={movie.Title}></Link>; */
-}
