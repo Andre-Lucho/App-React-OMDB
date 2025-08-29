@@ -9,7 +9,7 @@ const Form = () => {
   const handleFormSubmit = (e) => {
     if (e && typeof e.preventDefault === 'function') {
       e.preventDefault();
-      navigate('/dashboard', { state: { input: userInput } });
+      navigate('movieConteainer', { state: { input: userInput } });
     }
   };
 

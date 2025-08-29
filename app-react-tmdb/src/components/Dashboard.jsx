@@ -1,55 +1,17 @@
-import { useEffect, useState, useContext } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { GlobalContext } from './GlobalContext';
-import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Loading from '../assets/Loading/Loading';
 
-const Dashboard = () => {
-  // Contexto global
-  const context = useContext(GlobalContext);
-  const { omdbKey, loading } = context;
-
-  // React-router
-  const location = useLocation();
-  const input = location.state?.input;
-  const navigate = useNavigate();
-
-  // Retorno e tratamento do fetch dasboard
-  const [movieFetch, setMovieFetch] = useState(null);
+const Dashboard = ({ movieFetch, error }) => {
+  // Tratamento dos dados do fetch
   const [movieData, setMovieData] = useState(null);
-  const [error, setError] = useState(true);
 
-  // Controle de páginas
-  const resultsPerPage = 10;
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(null);
-
-  // Fetch Dashboard
-  useEffect(() => {
-    const newFetch = async () => {
-      setError(null);
-      let response;
-
-      if (!omdbKey || !input) {
-        setError(`Por Favor, digite um termo para a busca!`);
-        return;
-      }
-      try {
-        response = await axios.get(
-          `http://www.omdbapi.com/?apikey=${omdbKey}&s=${input}&page=${currentPage}`,
-        );
-        setMovieFetch(response.data);
-      } catch (erro) {
-        setError(`Erro ao carregar dados: ${erro.message}`);
-      }
-    };
-    newFetch();
-  }, [input]);
+  const navigate = useNavigate();
 
   // Tratamento fetch
   useEffect(() => {
-    if (movieFetch) {
+    if (movieFetch && movieFetch.Search) {
       let data = movieFetch.Search.map((movie) => {
         const { Title, Year, Poster } = movie;
         return {
@@ -62,16 +24,6 @@ const Dashboard = () => {
     }
   }, [movieFetch]);
 
-  useEffect(() => console.log(totalPages), [totalPages]);
-
-  // Cálculo e att do total de paginas retornadas
-  useEffect(() => {
-    if (movieFetch && movieFetch.totalResults) {
-      const totalResults = parseInt(movieFetch.totalResults, 10);
-      setTotalPages(Math.ceil(totalResults / resultsPerPage));
-    }
-  }, [movieFetch]);
-
   // Router - Mandando 'título' p Modal.jsx
   const handleDashSubmit = (movieTitle) => {
     if (movieTitle) {
@@ -79,14 +31,13 @@ const Dashboard = () => {
     }
   };
 
-  // Loading
-  if (loading) return <Loading />;
+  // Loading é tratado no container
 
   // Error
   if (error)
     return (
       <div className="erro-container">
-        <p>Erro ao carregar os dados! Faça uma nova busca...</p>
+        <p>{error}</p>
       </div>
     );
 

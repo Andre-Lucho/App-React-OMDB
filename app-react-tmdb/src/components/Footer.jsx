@@ -1,32 +1,23 @@
-import { useContext, useEffect } from 'react';
-// import { GlobalContext } from './GlobalContext';
+import { useEffect } from 'react';
 import { MdArrowBackIos } from 'react-icons/md'; // <MdArrowBackIos />
 import { MdArrowForwardIos } from 'react-icons/md'; //<MdArrowForwardIos />
 
-const Footer = () => {
-  // const context = useContext(GlobalContext);
+const Footer = ({ movieFetch, setCurrentPage, currentPage, totalPages }) => {
+  // Não precisamos mais do useEffect aqui pois o fetch será gerenciado pelo container
 
-  // const { movieFetch, currentPage, setCurrentPage, totalPages } = context;
-
-  const handleNextPage = async () => {
-    if (fetchData && currentPage < totalPages) {
+  // Função para ir para a próxima página
+  const handleNextPage = () => {
+    if (movieFetch && currentPage < totalPages) {
       setCurrentPage((prev) => prev + 1);
     }
   };
 
+  // Função para voltar à página anterior
   const handlePrevPage = () => {
-    if (fetchData && currentPage > 1) {
+    if (movieFetch && currentPage > 1) {
       setCurrentPage((prev) => prev - 1);
     }
   };
-
-  // Atualiza os dados quando a página muda
-  useEffect(() => {
-    if (fetchData) {
-      const event = { preventDefault: () => {} };
-      // Novo Fetch aqui == Fetch(event);
-    }
-  }, [currentPage]);
 
   if (totalPages > 1) {
     return (
