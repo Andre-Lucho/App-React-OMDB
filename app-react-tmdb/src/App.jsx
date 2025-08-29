@@ -16,7 +16,7 @@ function App() {
             <Route path="/" element={<Header />} />
             <Route path="movieConteainer" element={<MovieContainer />} />
             <Route path="modal/:title" element={<Modal />} />
-            <Route path="favorites" element={<MyFavorites />} />
+            <Route path="favorites/:title" element={<MyFavorites />} />
           </Routes>
         </GlobalStorage>
       </BrowserRouter>
