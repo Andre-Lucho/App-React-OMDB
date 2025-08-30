@@ -1,12 +1,12 @@
 import { useEffect, useState, useContext } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { GlobalContext } from './GlobalContext';
+import { useLocation } from 'react-router-dom';
+import { GlobalContext } from '../GlobalContext';
 import axios from 'axios';
-import Dashboard from './Dashboard';
-import Footer from './Footer';
-import Loading from '../assets/Loading/Loading';
+import Dashboard from '../Dashboard';
+import Footer from '../Footer';
+import Loading from '../../assets/Loading/Loading';
 
-const MovieContainer = () => {
+const DashContainer = () => {
   // Contexto global
   const context = useContext(GlobalContext);
   const { omdbKey, loading } = context;
@@ -14,7 +14,6 @@ const MovieContainer = () => {
   // React-router
   const location = useLocation();
   const input = location.state?.input;
-  const navigate = useNavigate();
 
   // Estados compartilhados
   const [movieFetch, setMovieFetch] = useState(null);
@@ -82,4 +81,4 @@ const MovieContainer = () => {
   );
 };
 
-export default MovieContainer;
+export default DashContainer;

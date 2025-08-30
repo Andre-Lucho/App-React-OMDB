@@ -1,44 +1,21 @@
 import { useState, useEffect, useContext } from 'react';
 import { GlobalContext } from './GlobalContext';
-import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import useLocalStorage from './Hooks/useLocalStorage';
-
 import { IoHeartSharp } from 'react-icons/io5';
 import { IoHeartOutline } from 'react-icons/io5';
 
 // <IoHeartSharp />
+
 const Modal = () => {
+  // Contexto global
   const context = useContext(GlobalContext);
-  const { omdbKey, loading } = context;
+  const { omdbKey, setFavMovie } = context;
 
-  const { title } = useParams();
-  const navigate = useNavigate();
-
-  const [modalFetch, setModalFetch] = useState(null);
-  const [favMovie, setFavMovie] = useLocalStorage('movie', '');
-
-  useEffect(() => {
-    const fetchModal = async () => {
-      if (title) {
-        const response = await axios.get(
-          `http://www.omdbapi.com/?apikey=${omdbKey}&t=${title}`,
-        );
-        setModalFetch(response.data);
-      }
-    };
-    fetchModal();
-  }, [title, favMovie]);
-
-  const handleFavMovie = (e, title) => {
+  const handleFavMovie = (e) => {
     if (e && typeof e.preventDefault === 'function') {
       e.preventDefault();
-      setFavMovie(title);
-      navigate(`/favorites/${favMovie}`);
+      setFavMovie(modalFetch.Title);
     }
   };
-
-  // useEffect(() => console.log(favMovie), [favMovie]);
 
   return (
     <div className="modal-container">
@@ -51,7 +28,7 @@ const Modal = () => {
                 alt={modalFetch.Title}
                 className="img-imagem"
               />
-              <IoHeartOutline onClick={(e) => handleFavMovie(e, title)} />
+              <IoHeartOutline onClick={(e) => handleFavMovie(e)} />
 
               <figcaption className="img-legenda">
                 <span>Título: {modalFetch.Title}</span>

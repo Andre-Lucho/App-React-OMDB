@@ -1,9 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { GlobalStorage } from './components/GlobalContext';
 import Header from './components/Header';
-import Modal from './components/Modal';
-import MyFavorites from './components/MyFavorites';
-import MovieContainer from './components/MovieContainer';
+import DashContainer from './components/containers/DashContainer';
+import ModalContainer from './components/containers/ModalContainer';
 
 function App() {
   return (
@@ -14,9 +13,10 @@ function App() {
           <Routes>
             {/* <Head title="Home" description="home" /> */}
             <Route path="/" element={<Header />} />
-            <Route path="movieConteainer" element={<MovieContainer />} />
-            <Route path="modal/:title" element={<Modal />} />
-            <Route path="favorites/:title" element={<MyFavorites />} />
+            <Route path="dashContainer" element={<DashContainer />} />
+            <Route path="modalContainer" element={<ModalContainer />} />
+            <Route path="/modal/:title" element={<Modal />} />
+            <Route path="favorites" element={<MyFavorites />} />
           </Routes>
         </GlobalStorage>
       </BrowserRouter>
