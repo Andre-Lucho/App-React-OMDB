@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { GlobalContext } from '../GlobalContext';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Modal from '../Modal';
 import MyFavorites from '../MyFavorites';
@@ -8,11 +8,10 @@ import MyFavorites from '../MyFavorites';
 const ModalContainer = () => {
   // Contexto global
   const context = useContext(GlobalContext);
-  const { omdbKey, setFavMovie } = context;
+  const { omdbKey } = context;
 
   // React-router
   const { title } = useParams();
-  const navigate = useNavigate();
 
   const [modalFetch, setModalFetch] = useState(null);
 
@@ -26,12 +25,11 @@ const ModalContainer = () => {
       }
     };
     fetchModal();
-  }, [title]);
+  }, [title, omdbKey]);
 
   return (
     <div>
-      <Modal />
-      <MyFavorites />
+      <Modal modalFetch={modalFetch} />
     </div>
   );
 };

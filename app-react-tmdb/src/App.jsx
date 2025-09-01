@@ -3,6 +3,8 @@ import { GlobalStorage } from './components/GlobalContext';
 import Header from './components/Header';
 import DashContainer from './components/containers/DashContainer';
 import ModalContainer from './components/containers/ModalContainer';
+import MyFavorites from './components/MyFavorites';
+import NotFound from './components/NotFound';
 
 function App() {
   return (
@@ -13,10 +15,10 @@ function App() {
           <Routes>
             {/* <Head title="Home" description="home" /> */}
             <Route path="/" element={<Header />} />
-            <Route path="dashContainer" element={<DashContainer />} />
-            <Route path="modalContainer" element={<ModalContainer />} />
-            <Route path="/modal/:title" element={<Modal />} />
+            <Route path="dashContainer/" element={<DashContainer />} />
+            <Route path="modalContainer/:title" element={<ModalContainer />} />
             <Route path="favorites" element={<MyFavorites />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </GlobalStorage>
       </BrowserRouter>

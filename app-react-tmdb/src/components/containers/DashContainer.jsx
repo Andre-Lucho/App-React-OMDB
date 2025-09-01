@@ -18,11 +18,7 @@ const DashContainer = () => {
   // Estados compartilhados
   const [movieFetch, setMovieFetch] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(null);
   const [error, setError] = useState(null);
-
-  // Controle de páginas
-  const resultsPerPage = 10;
 
   // Fetch Dashboard
   useEffect(() => {
@@ -33,7 +29,6 @@ const DashContainer = () => {
         setError(`Por Favor, digite um termo para a busca!`);
         return;
       }
-
       try {
         const response = await axios.get(
           `http://www.omdbapi.com/?apikey=${omdbKey}&s=${input}&page=${currentPage}`,
@@ -44,17 +39,7 @@ const DashContainer = () => {
       }
     };
     newFetch();
-  }, [input, currentPage]);
-
-  // Cálculo e att do total de paginas retornadas
-  useEffect(() => {
-    if (movieFetch && movieFetch.totalResults) {
-      const totalResults = parseInt(movieFetch.totalResults, 10);
-      setTotalPages(Math.ceil(totalResults / resultsPerPage));
-    } else {
-      setTotalPages(null);
-    }
-  }, [movieFetch]);
+  }, [input, omdbKey, currentPage]);
 
   // Loading
   if (loading) return <Loading />;
@@ -75,7 +60,6 @@ const DashContainer = () => {
         movieFetch={movieFetch}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        totalPages={totalPages}
       />
     </>
   );

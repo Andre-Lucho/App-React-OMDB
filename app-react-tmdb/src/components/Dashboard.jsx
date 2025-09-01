@@ -3,7 +3,12 @@ import { useNavigate } from 'react-router-dom';
 
 import Loading from '../assets/Loading/Loading';
 
-const Dashboard = ({ movieFetch, error }) => {
+import { IoHeartSharp } from 'react-icons/io5';
+import { IoHeartOutline } from 'react-icons/io5';
+
+// <IoHeartSharp />
+
+const Dashboard = ({ movieFetch, error, setFavMovie }) => {
   // Tratamento dos dados do fetch
   const [movieData, setMovieData] = useState(null);
 
@@ -27,7 +32,14 @@ const Dashboard = ({ movieFetch, error }) => {
   // Router - Mandando 'título' p Modal.jsx
   const handleDashSubmit = (movieTitle) => {
     if (movieTitle) {
-      navigate(`/modal/${movieTitle}`);
+      navigate(`/modalContainer/${movieTitle}`);
+    }
+  };
+
+  const handleFavMovie = (e) => {
+    if (e && typeof e.preventDefault === 'function') {
+      e.preventDefault();
+      setFavMovie(movieFetch.Title);
     }
   };
 
@@ -59,6 +71,7 @@ const Dashboard = ({ movieFetch, error }) => {
                   More Info
                 </button>
               </figcaption>
+              <IoHeartOutline onClick={(e) => handleFavMovie(e)} />
             </li>
           ))}
       </ul>

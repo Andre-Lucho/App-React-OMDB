@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Form from './Form';
-import Favorites from './MyFavorites';
+import MyFavorites from './MyFavorites';
 
 const Header = () => {
   return (
@@ -17,7 +17,7 @@ const Header = () => {
       </nav>
       <Form />
       <Link to={'favorites'}>
-        <Favorites />
+        <li>Favoritos</li>
       </Link>
     </div>
   );

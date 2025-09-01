@@ -5,15 +5,15 @@ import { IoHeartOutline } from 'react-icons/io5';
 
 // <IoHeartSharp />
 
-const Modal = () => {
+const Modal = ({ modalFetch }) => {
   // Contexto global
   const context = useContext(GlobalContext);
-  const { omdbKey, setFavMovie } = context;
+  const { setFavMovies } = context;
 
   const handleFavMovie = (e) => {
     if (e && typeof e.preventDefault === 'function') {
       e.preventDefault();
-      setFavMovie(modalFetch.Title);
+      setFavMovies((prev) => [...prev, modalFetch.Title]);
     }
   };
 
@@ -28,7 +28,6 @@ const Modal = () => {
                 alt={modalFetch.Title}
                 className="img-imagem"
               />
-              <IoHeartOutline onClick={(e) => handleFavMovie(e)} />
 
               <figcaption className="img-legenda">
                 <span>Título: {modalFetch.Title}</span>
@@ -45,6 +44,7 @@ const Modal = () => {
             </>
           )}
         </li>
+        <IoHeartOutline onClick={(e) => handleFavMovie(e)} />
       </ul>
     </div>
   );
