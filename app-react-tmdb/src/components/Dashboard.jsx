@@ -5,10 +5,12 @@ import Loading from '../assets/Loading/Loading';
 
 import { IoHeartSharp } from 'react-icons/io5';
 import { IoHeartOutline } from 'react-icons/io5';
+import { IoCloseCircleOutline } from 'react-icons/io5';
 
 // <IoHeartSharp />
+// <IoCloseCircleOutline />
 
-const Dashboard = ({ movieFetch, error, setFavMovie }) => {
+const Dashboard = ({ movieFetch, error, setFavMovies }) => {
   // Tratamento dos dados do fetch
   const [movieData, setMovieData] = useState(null);
 
@@ -36,10 +38,10 @@ const Dashboard = ({ movieFetch, error, setFavMovie }) => {
     }
   };
 
-  const handleFavMovie = (e) => {
+  const handleFavMovie = (e, movieTitle) => {
     if (e && typeof e.preventDefault === 'function') {
       e.preventDefault();
-      setFavMovie(movieFetch.Title);
+      setFavMovies((prev) => [...prev, movieTitle]);
     }
   };
 
@@ -71,7 +73,10 @@ const Dashboard = ({ movieFetch, error, setFavMovie }) => {
                   More Info
                 </button>
               </figcaption>
-              <IoHeartOutline onClick={(e) => handleFavMovie(e)} />
+              <IoHeartOutline
+                onClick={(e) => handleFavMovie(e, movie.Title)}
+                className="icon"
+              />
             </li>
           ))}
       </ul>

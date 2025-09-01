@@ -9,7 +9,7 @@ import Loading from '../../assets/Loading/Loading';
 const DashContainer = () => {
   // Contexto global
   const context = useContext(GlobalContext);
-  const { omdbKey, loading } = context;
+  const { omdbKey, loading, setFavMovies } = context;
 
   // React-router
   const location = useLocation();
@@ -55,7 +55,11 @@ const DashContainer = () => {
 
   return (
     <>
-      <Dashboard movieFetch={movieFetch} error={error} />
+      <Dashboard
+        movieFetch={movieFetch}
+        setFavMovies={setFavMovies}
+        error={error}
+      />
       <Footer
         movieFetch={movieFetch}
         currentPage={currentPage}

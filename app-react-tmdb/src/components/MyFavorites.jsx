@@ -2,6 +2,10 @@ import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from './GlobalContext';
 import axios from 'axios';
 
+import { IoCloseCircleOutline } from 'react-icons/io5';
+
+// <IoCloseCircleOutline />
+
 const MyFavorites = () => {
   const context = useContext(GlobalContext);
   const { favMovies, omdbKey } = context;
@@ -29,8 +33,8 @@ const MyFavorites = () => {
           } catch (error) {
             console.log(error);
           }
-          setFavData(moviesData);
         }
+        setFavData(moviesData);
       };
       fetchFavorites();
     } else {
@@ -54,6 +58,7 @@ const MyFavorites = () => {
                   <span>{movie.Title}</span>
                   <p>{movie.Year}</p>
                 </figcaption>
+                <IoCloseCircleOutline className="icon" />
               </li>
             ))}
         </ul>
