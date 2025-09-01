@@ -4,20 +4,10 @@ import axios from 'axios';
 
 import { IoCloseCircleOutline } from 'react-icons/io5';
 
-// <IoCloseCircleOutline />
-
 const MyFavorites = () => {
   const context = useContext(GlobalContext);
-  const { favMovies, omdbKey } = context;
+  const { favMovies, omdbKey, setFavMovies } = context;
   const [favData, setFavData] = useState([]);
-
-  useEffect(() => {
-    console.log(favMovies);
-  }, [favMovies]);
-
-  useEffect(() => {
-    console.log(favData);
-  }, [favData]);
 
   useEffect(() => {
     if (favMovies && favMovies.length > 0) {
@@ -42,6 +32,13 @@ const MyFavorites = () => {
     }
   }, [favMovies, omdbKey]);
 
+  const handleFavExclude = (movieTitle) => {
+    if (favMovies && favMovies.length > 0) {
+      const movieToExclude = favMovies.filter((movie) => movie !== movieTitle);
+      setFavMovies(movieToExclude);
+    }
+  };
+
   if (favData)
     return (
       <div className="dashboard-container">
@@ -58,7 +55,10 @@ const MyFavorites = () => {
                   <span>{movie.Title}</span>
                   <p>{movie.Year}</p>
                 </figcaption>
-                <IoCloseCircleOutline className="icon" />
+                <IoCloseCircleOutline
+                  onClick={() => handleFavExclude(movie.Title)}
+                  className="icon"
+                />
               </li>
             ))}
         </ul>
