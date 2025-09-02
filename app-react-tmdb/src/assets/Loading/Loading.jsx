@@ -3,11 +3,9 @@ import './loading.scss';
 
 const Loading = () => {
   return (
-    <div className="loading-wave">
-      <div className="loading-bar"></div>
-      <div className="loading-bar"></div>
-      <div className="loading-bar"></div>
-      <div className="loading-bar"></div>
+    <div className="container">
+      <div className="loader"></div>
+      <div>Loading...</div>
     </div>
   );
 };

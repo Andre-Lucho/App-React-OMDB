@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import '../styles/footer.scss';
-import { MdArrowBackIos } from 'react-icons/md'; // <MdArrowBackIos />
-import { MdArrowForwardIos } from 'react-icons/md'; //<MdArrowForwardIos />
-import FooterButton from '../assets/FooterButton/FooterButton';
+import { MdArrowBackIos } from 'react-icons/md';
+import { MdArrowForwardIos } from 'react-icons/md';
 
 const Footer = ({ fetchData, setCurrentPage, currentPage }) => {
   const [totalPages, setTotalPages] = useState(null);
@@ -37,15 +36,25 @@ const Footer = ({ fetchData, setCurrentPage, currentPage }) => {
   if (totalPages > 1) {
     return (
       <div className="footer-container">
-        <button onClick={handlePrevPage} disabled={currentPage <= 1}>
-          Retroceder
-        </button>
+        <span
+          onClick={handlePrevPage}
+          className="footer-icon"
+          style={{ display: currentPage <= 1 ? 'none' : 'inline-flex' }}
+        >
+          <MdArrowBackIos className="arrow-back" />
+        </span>
         <span>
           Página {currentPage} de {totalPages}
         </span>
-        <button onClick={handleNextPage} disabled={currentPage >= totalPages}>
-          Prosseguir
-        </button>
+        <span
+          onClick={handleNextPage}
+          className="footer-icon"
+          style={{
+            display: currentPage >= totalPages ? 'none' : 'inline-flex',
+          }}
+        >
+          <MdArrowForwardIos />
+        </span>
       </div>
     );
   }

@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Loading from '../assets/Loading/Loading';
-
+import SpotlightCard from '../assets/Card/SpotlightCard';
 import { IoHeartSharp } from 'react-icons/io5';
 import { IoHeartOutline } from 'react-icons/io5';
 import { IoCloseCircleOutline } from 'react-icons/io5';
@@ -10,7 +9,7 @@ import { IoCloseCircleOutline } from 'react-icons/io5';
 // <IoHeartSharp />
 // <IoCloseCircleOutline />
 
-const Dashboard = ({ fetchData, error, setFavMovies, favMovies }) => {
+const Dashboard = ({ fetchData, setFavMovies }) => {
   // Tratamento dos dados do fetch
   const [movieData, setMovieData] = useState(null);
 
@@ -45,37 +44,37 @@ const Dashboard = ({ fetchData, error, setFavMovies, favMovies }) => {
     }
   };
 
-  // Error
-  if (error)
-    return (
-      <div className="erro-container">
-        <p>{error}</p>
-      </div>
-    );
-
   return (
     <div className="dashboard-container">
       <ul className="galery-container">
         {movieData &&
           movieData.map((movie, i) => (
-            <li key={i} className="img-container">
-              <img
-                src={movie.Poster}
-                alt={movie.Title}
-                className="img-imagem"
-              />
-              <figcaption className="img-legenda">
-                <span>{movie.Title}</span>
-                <p>{movie.Year}</p>
-                <button onClick={() => handleDashSubmit(movie.Title)}>
-                  More Info
-                </button>
-              </figcaption>
-              <IoHeartOutline
-                onClick={(e) => handleFavMovie(e, movie.Title)}
-                className="icon"
-              />
-            </li>
+            <SpotlightCard
+              className="custom-spotlight-card"
+              spotlightColor="rgba(0, 229, 255, 0.2)"
+            >
+              <li key={i} className="img-container">
+                <img
+                  src={movie.Poster}
+                  alt={movie.Title}
+                  className="img-imagem"
+                />
+                <figcaption figcaption className="img-legenda">
+                  <span>{movie.Title}</span>
+                  <p>{movie.Year}</p>
+                  <button
+                    onClick={() => handleDashSubmit(movie.Title)}
+                    className="dash-button"
+                  >
+                    More Info
+                  </button>
+                </figcaption>
+                <IoHeartOutline
+                  onClick={(e) => handleFavMovie(e, movie.Title)}
+                  className="dash-heart-icon"
+                />
+              </li>
+            </SpotlightCard>
           ))}
       </ul>
     </div>

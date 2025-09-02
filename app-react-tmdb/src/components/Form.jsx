@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/form.scss';
-import '../styles/button.scss';
 
 const Form = () => {
   const [userInput, setUserInput] = useState('');
@@ -24,7 +23,7 @@ const Form = () => {
           onChange={({ target }) => setUserInput(target.value)}
           placeholder="Buscar filme..."
         />
-        <button>Search</button>
+        <button className="form-button">Search</button>
       </form>
     </div>
   );

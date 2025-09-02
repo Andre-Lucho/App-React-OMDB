@@ -5,6 +5,8 @@ import Dashboard from '../Dashboard';
 import Footer from '../Footer';
 import Loading from '../../assets/Loading/Loading';
 
+import '../../styles/dashboard.scss';
+
 const DashContainer = () => {
   // Contexto global
   const context = useContext(GlobalContext);
@@ -36,22 +38,28 @@ const DashContainer = () => {
   }, [input, omdbKey, currentPage]);
 
   // Loading
-  if (loading) return <Loading />;
 
   // Verificação de dados
   if (!omdbKey) {
     return (
-      <div className="no-omdb-container">
+      <div className="no-omdb-input-container">
         <p>Você precisa de uma chave OMDB para a realizar a busca!</p>
       </div>
     );
   }
   if (!input) {
     return (
-      <div className="no-imput-container">
+      <div className="no-omdb-input-container">
         <p>Por favor, digite um termo para a busca!</p>
       </div>
     );
+  }
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    <p>{error}</p>;
   }
 
   return (
@@ -59,8 +67,8 @@ const DashContainer = () => {
       <Dashboard
         fetchData={fetchData}
         setFavMovies={setFavMovies}
-        favMovies={favMovies}
         error={error}
+        loading={loading}
       />
       <Footer
         fetchData={fetchData}

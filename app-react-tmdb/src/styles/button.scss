@@ -4,7 +4,7 @@ button {
   height: 45px;
   margin: 5px;
   width: 120px;
-  background: #333;
+  background: #262626;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
@@ -20,7 +20,7 @@ button {
   color: rgb(161, 161, 161);
   -webkit-transition: 200ms;
   transition: 200ms;
-  background: linear-gradient(145deg, #2e2d2d, #212121);
+  background: linear-gradient(145deg, #262525, #1a1a1a);
   -webkit-box-shadow: -1px -5px 15px #41465b, 5px 5px 15px #41465b,
     inset 5px 5px 10px #212121, inset -5px -5px 10px #212121;
   box-shadow: -1px -8px 15px #41465b, 1px 8px 15px #41465b,

@@ -14,10 +14,17 @@ const MyFavorites = () => {
     }
   };
 
+  if (favMovies.length == 0) {
+    return (
+      <p className="no-omdb-input-container">
+        Você ainda não tem filmes favoritos.
+      </p>
+    );
+  }
   return (
     <div className="dashboard-container">
       <ul className="galery-container">
-        {favMovies?.length > 0 ? (
+        {favMovies?.length > 0 &&
           favMovies.map((title) => (
             <FavoriteMovieItem
               key={title}
@@ -25,10 +32,7 @@ const MyFavorites = () => {
               omdbKey={omdbKey}
               handleFavExclude={handleFavExclude}
             />
-          ))
-        ) : (
-          <p>Você ainda não tem filmes favoritos.</p>
-        )}
+          ))}
         ;
       </ul>
     </div>
