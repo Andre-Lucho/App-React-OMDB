@@ -1,0 +1,32 @@
+@use 'main.scss';
+
+.search-container {
+  display: flex;
+  max-width: 600px;
+  align-items: center;
+  flex: 1;
+  gap: 15px;
+
+  input {
+    display: block;
+    width: 25rem;
+    min-height: 40px;
+    border: 1px solid #ccc;
+    border-radius: var(--radius);
+    background: #eee;
+    transition: 0.2s;
+    flex: 1;
+    padding-left: 10px;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: var(--color-light);
+    background: white;
+    box-shadow: 0 0 0 4px var(--color);
+  }
+
+  input::placeholder {
+    font-size: 0.9rem;
+  }
+}

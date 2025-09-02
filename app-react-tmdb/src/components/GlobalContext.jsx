@@ -5,7 +5,16 @@ import useLocalStorage from './Hooks/useLocalStorage';
 export const GlobalContext = createContext();
 
 export const GlobalStorage = ({ children }) => {
-  const { loading, error } = useFetch();
+  const {
+    request,
+    setFetchData,
+    fetchData,
+    setError,
+    error,
+    loading,
+    response,
+    jsonReturn,
+  } = useFetch();
   const [favMovies, setFavMovies] = useLocalStorage('movie', []);
 
   const omdbKey = import.meta.env.VITE_API_KEY;
@@ -13,10 +22,16 @@ export const GlobalStorage = ({ children }) => {
   return (
     <GlobalContext.Provider
       value={{
-        setFavMovies,
-        favMovies,
-        loading,
+        request,
+        setFetchData,
+        fetchData,
+        setError,
         error,
+        response,
+        jsonReturn,
+        favMovies,
+        setFavMovies,
+        loading,
         omdbKey,
       }}
     >

@@ -12,7 +12,7 @@ function App() {
       <BrowserRouter>
         <GlobalStorage>
           <Header />
-          <Routes>
+          <Routes className="routes-container">
             {/* <Head title="Home" description="home" /> */}
             <Route path="/" element={<Header />} />
             <Route path="dashContainer/" element={<DashContainer />} />

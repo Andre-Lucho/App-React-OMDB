@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+import '../styles/footer.scss';
 import { MdArrowBackIos } from 'react-icons/md'; // <MdArrowBackIos />
 import { MdArrowForwardIos } from 'react-icons/md'; //<MdArrowForwardIos />
+import FooterButton from '../assets/FooterButton/FooterButton';
 
-const Footer = ({ movieFetch, setCurrentPage, currentPage }) => {
+const Footer = ({ fetchData, setCurrentPage, currentPage }) => {
   const [totalPages, setTotalPages] = useState(null);
 
   // Controle de páginas
@@ -10,24 +12,24 @@ const Footer = ({ movieFetch, setCurrentPage, currentPage }) => {
 
   // Cálculo e att do total de páginas retornadas
   useEffect(() => {
-    if (movieFetch && movieFetch.totalResults) {
-      const totalResults = parseInt(movieFetch.totalResults, 10);
+    if (fetchData && fetchData.totalResults) {
+      const totalResults = parseInt(fetchData.totalResults, 10);
       setTotalPages(Math.ceil(totalResults / resultsPerPage));
     } else {
       setTotalPages(null);
     }
-  }, [movieFetch]);
+  }, [fetchData]);
 
   // Ir para a próxima página
   const handleNextPage = () => {
-    if (movieFetch && currentPage < totalPages) {
+    if (fetchData && currentPage < totalPages) {
       setCurrentPage((prev) => prev + 1);
     }
   };
 
   // Voltar à página anterior
   const handlePrevPage = () => {
-    if (movieFetch && currentPage > 1) {
+    if (fetchData && currentPage > 1) {
       setCurrentPage((prev) => prev - 1);
     }
   };

@@ -5,7 +5,7 @@ import { IoHeartOutline } from 'react-icons/io5';
 
 // <IoHeartSharp />
 
-const Modal = ({ modalFetch }) => {
+const Modal = ({ fetchData }) => {
   // Contexto global
   const context = useContext(GlobalContext);
   const { setFavMovies } = context;
@@ -13,7 +13,7 @@ const Modal = ({ modalFetch }) => {
   const handleFavMovie = (e) => {
     if (e && typeof e.preventDefault === 'function') {
       e.preventDefault();
-      setFavMovies((prev) => [...prev, modalFetch.Title]);
+      setFavMovies((prev) => [...prev, fetchData.Title]);
     }
   };
 
@@ -21,25 +21,25 @@ const Modal = ({ modalFetch }) => {
     <div className="modal-container">
       <ul className="galery-container">
         <li className="img-container">
-          {modalFetch && (
+          {fetchData && (
             <>
               <img
-                src={modalFetch.Poster}
-                alt={modalFetch.Title}
+                src={fetchData.Poster}
+                alt={fetchData.Title}
                 className="img-imagem"
               />
 
               <figcaption className="img-legenda">
-                <span>Título: {modalFetch.Title}</span>
-                <span>Ano: {modalFetch.Year}</span>
-                <span>Lançamento: {modalFetch.Released}</span>
-                <span>Gênero: {modalFetch.Genre}</span>
-                <span>Diretor(s): {modalFetch.Director}</span>
-                <span>Elenco: {modalFetch.Actores}</span>
-                <span>Sinopse: {modalFetch.Plot}</span>
-                <span>País: {modalFetch.Country}</span>
-                <span>Classificação IMBD: {modalFetch.imdbRating}</span>
-                <span>Premiações: {modalFetch.Awards}</span>
+                <span>Título: {fetchData.Title}</span>
+                <span>Ano: {fetchData.Year}</span>
+                <span>Lançamento: {fetchData.Released}</span>
+                <span>Gênero: {fetchData.Genre}</span>
+                <span>Diretor(s): {fetchData.Director}</span>
+                <span>Elenco: {fetchData.Actores}</span>
+                <span>Sinopse: {fetchData.Plot}</span>
+                <span>País: {fetchData.Country}</span>
+                <span>Classificação IMBD: {fetchData.imdbRating}</span>
+                <span>Premiações: {fetchData.Awards}</span>
               </figcaption>
             </>
           )}

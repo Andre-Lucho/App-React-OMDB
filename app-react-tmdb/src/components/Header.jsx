@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
 import Form from './Form';
 import MyFavorites from './MyFavorites';
+import { Link } from 'react-router-dom';
+import '../styles/header.scss';
 
 const Header = () => {
   return (
-    <div className="header-container" id="home">
+    <div id="home" className="header-container">
       <Link to={'/'}>
         <div className="logo">
           <li>APP OMDB</li>
@@ -16,7 +17,7 @@ const Header = () => {
         </Link>
       </nav>
       <Form />
-      <Link to={'favorites'}>
+      <Link to={'favorites'} className="fav-container">
         <li>Favoritos</li>
       </Link>
     </div>

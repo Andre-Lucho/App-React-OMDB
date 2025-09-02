@@ -10,7 +10,7 @@ import { IoCloseCircleOutline } from 'react-icons/io5';
 // <IoHeartSharp />
 // <IoCloseCircleOutline />
 
-const Dashboard = ({ movieFetch, error, setFavMovies }) => {
+const Dashboard = ({ fetchData, error, setFavMovies, favMovies }) => {
   // Tratamento dos dados do fetch
   const [movieData, setMovieData] = useState(null);
 
@@ -18,8 +18,8 @@ const Dashboard = ({ movieFetch, error, setFavMovies }) => {
 
   // Tratamento fetch
   useEffect(() => {
-    if (movieFetch && movieFetch.Search) {
-      let data = movieFetch.Search.map((movie) => {
+    if (fetchData && fetchData.Search) {
+      let data = fetchData.Search.map((movie) => {
         const { Title, Year, Poster } = movie;
         return {
           Title,
@@ -29,7 +29,7 @@ const Dashboard = ({ movieFetch, error, setFavMovies }) => {
       });
       setMovieData(data);
     }
-  }, [movieFetch]);
+  }, [fetchData]);
 
   // Router - Mandando 'título' p Modal.jsx
   const handleDashSubmit = (movieTitle) => {
@@ -44,8 +44,6 @@ const Dashboard = ({ movieFetch, error, setFavMovies }) => {
       setFavMovies((prev) => [...prev, movieTitle]);
     }
   };
-
-  // Loading é tratado no container
 
   // Error
   if (error)
