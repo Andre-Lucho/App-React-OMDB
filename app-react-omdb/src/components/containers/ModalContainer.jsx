@@ -1,13 +1,15 @@
-import { useState, useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import { GlobalContext } from '../GlobalContext';
 import { useParams } from 'react-router-dom';
 import Modal from '../Modal';
+
 import Loading from '../../assets/Loading/Loading';
+import '../../styles/modal.scss';
 
 const ModalContainer = () => {
   // Contexto global
-  const context = useContext(GlobalContext);
-  const { request, fetchData, omdbKey, loading, error } = context;
+  const { request, fetchData, omdbKey, loading, error } =
+    useContext(GlobalContext);
 
   // React-router
   const { title } = useParams();
@@ -45,8 +47,8 @@ const ModalContainer = () => {
   }
 
   return (
-    <div>
-      <Modal fetchData={fetchData} />
+    <div className="modal-container">
+      <Modal fetchData={fetchData} />;
     </div>
   );
 };

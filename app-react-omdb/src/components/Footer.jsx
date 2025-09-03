@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import '../styles/footer.scss';
+
 import { MdArrowBackIos } from 'react-icons/md';
 import { MdArrowForwardIos } from 'react-icons/md';
+import '../styles/footer.scss';
 
 const Footer = ({ fetchData, setCurrentPage, currentPage }) => {
   const [totalPages, setTotalPages] = useState(null);
@@ -9,7 +10,7 @@ const Footer = ({ fetchData, setCurrentPage, currentPage }) => {
   // Controle de páginas
   const resultsPerPage = 10;
 
-  // Cálculo e att do total de páginas retornadas
+  // Cálculo e Att do total de páginas retornadas
   useEffect(() => {
     if (fetchData && fetchData.totalResults) {
       const totalResults = parseInt(fetchData.totalResults, 10);

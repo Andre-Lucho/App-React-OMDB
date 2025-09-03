@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { GlobalContext } from './GlobalContext';
 import { useNavigate } from 'react-router-dom';
+
 import '../styles/form.scss';
 
 const Form = () => {
-  const [userInput, setUserInput] = useState('');
+  const { userInput, setUserInput } = useContext(GlobalContext);
   const navigate = useNavigate();
 
   const handleFormSubmit = (e) => {

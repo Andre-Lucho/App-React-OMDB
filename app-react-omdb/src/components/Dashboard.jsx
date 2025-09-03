@@ -6,13 +6,8 @@ import { IoHeartSharp } from 'react-icons/io5';
 import { IoHeartOutline } from 'react-icons/io5';
 import { IoCloseCircleOutline } from 'react-icons/io5';
 
-// <IoHeartSharp />
-// <IoCloseCircleOutline />
-
-const Dashboard = ({ fetchData, setFavMovies }) => {
-  // Tratamento dos dados do fetch
+const Dashboard = ({ fetchData, setFavMovies, favMovies }) => {
   const [movieData, setMovieData] = useState(null);
-
   const navigate = useNavigate();
 
   // Tratamento fetch
@@ -37,10 +32,14 @@ const Dashboard = ({ fetchData, setFavMovies }) => {
     }
   };
 
-  const handleFavMovie = (e, movieTitle) => {
-    if (e && typeof e.preventDefault === 'function') {
-      e.preventDefault();
-      setFavMovies((prev) => [...prev, movieTitle]);
+  const handleFavMovie = (movieTitle) => {
+    setFavMovies((prev) => [...prev, movieTitle]);
+  };
+
+  const handleFavExclude = (movieTitle) => {
+    if (favMovies && favMovies.length > 0) {
+      const movieToExclude = favMovies.filter((movie) => movie !== movieTitle);
+      setFavMovies(movieToExclude);
     }
   };
 
@@ -50,16 +49,17 @@ const Dashboard = ({ fetchData, setFavMovies }) => {
         {movieData &&
           movieData.map((movie, i) => (
             <SpotlightCard
+              key={i}
               className="custom-spotlight-card"
-              spotlightColor="rgba(0, 229, 255, 0.2)"
+              spotlightColor="rgba(197, 191, 254, 0.25)"
             >
-              <li key={i} className="img-container">
+              <li className="img-container">
                 <img
                   src={movie.Poster}
                   alt={movie.Title}
                   className="img-imagem"
                 />
-                <figcaption figcaption className="img-legenda">
+                <figcaption className="img-legenda">
                   <span>{movie.Title}</span>
                   <p>{movie.Year}</p>
                   <button
@@ -69,10 +69,17 @@ const Dashboard = ({ fetchData, setFavMovies }) => {
                     More Info
                   </button>
                 </figcaption>
-                <IoHeartOutline
-                  onClick={(e) => handleFavMovie(e, movie.Title)}
-                  className="dash-heart-icon"
-                />
+                {favMovies.some((favMovie) => favMovie === movie.Title) ? (
+                  <IoHeartSharp
+                    onClick={() => handleFavExclude(movie.Title)}
+                    className="dash-heart-icon-active"
+                  />
+                ) : (
+                  <IoHeartOutline
+                    onClick={() => handleFavMovie(movie.Title)}
+                    className="dash-heart-icon"
+                  />
+                )}
               </li>
             </SpotlightCard>
           ))}

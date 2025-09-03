@@ -9,7 +9,6 @@ import '../../styles/dashboard.scss';
 
 const DashContainer = () => {
   // Contexto global
-  const context = useContext(GlobalContext);
   const {
     request,
     fetchData,
@@ -17,10 +16,11 @@ const DashContainer = () => {
     error,
     favMovies,
     setFavMovies,
+    isFavIconActive,
+    setIsFavIconActive,
     omdbKey,
-  } = context;
+  } = useContext(GlobalContext);
 
-  // Compartilhado
   const [currentPage, setCurrentPage] = useState(1);
 
   // React-router
@@ -36,8 +36,6 @@ const DashContainer = () => {
       `http://www.omdbapi.com/?apikey=${omdbKey}&s=${input}&page=${currentPage}`,
     );
   }, [input, omdbKey, currentPage]);
-
-  // Loading
 
   // Verificação de dados
   if (!omdbKey) {
@@ -67,8 +65,11 @@ const DashContainer = () => {
       <Dashboard
         fetchData={fetchData}
         setFavMovies={setFavMovies}
+        favMovies={favMovies}
         error={error}
         loading={loading}
+        isFavIconActive={isFavIconActive}
+        setIsFavIconActive={setIsFavIconActive}
       />
       <Footer
         fetchData={fetchData}

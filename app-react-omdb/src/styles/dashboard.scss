@@ -52,16 +52,17 @@
       }
     }
 
-    .dash-heart-icon {
+    .dash-heart-icon,
+    .dash-heart-icon-active {
       position: absolute;
       top: 10px;
       right: 10px;
       font-size: 24px;
+      z-index: 2;
       cursor: pointer;
-      z-index: 10;
       background: transparent;
-      border: none;
       outline: none;
+      color: #ba1515;
     }
   }
 }

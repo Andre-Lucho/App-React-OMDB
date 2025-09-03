@@ -2,10 +2,9 @@ import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from './GlobalContext';
 import FavoriteMovieItem from './FavoriteMovieItem';
 
-import { IoCloseCircleOutline } from 'react-icons/io5';
-
 const MyFavorites = () => {
-  const { favMovies, omdbKey, setFavMovies } = useContext(GlobalContext);
+  const { favMovies, setFavMovies, loading, omdbKey } =
+    useContext(GlobalContext);
 
   const handleFavExclude = (movieTitle) => {
     if (favMovies && favMovies.length > 0) {
@@ -31,6 +30,7 @@ const MyFavorites = () => {
               movieTitle={title}
               omdbKey={omdbKey}
               handleFavExclude={handleFavExclude}
+              loading={loading}
             />
           ))}
         ;

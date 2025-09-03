@@ -1,0 +1,106 @@
+.modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 2;
+
+  .modal-galery-container {
+    min-height: 100%;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    margin: 2.5rem 0;
+
+    .modal-img-container {
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+      background-color: #1c1b25;
+      position: relative;
+
+      .custom-spotlight-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .modal-image-wrapper {
+          position: relative;
+          width: 100%;
+          max-width: 400px;
+          margin: 0 auto;
+
+          .img-imagem {
+            display: block;
+            min-height: 550px;
+            max-width: 400px;
+            border-radius: 8px;
+            object-fit: cover;
+            object-position: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+          }
+
+          .modal-heart-icon,
+          .modal-heart-icon-active {
+            position: absolute;
+            top: 1rem;
+            right: 4rem;
+            z-index: 3;
+            font-size: 35px;
+            cursor: pointer;
+            background: transparent;
+            color: #ba1515;
+            outline: none;
+          }
+        }
+
+        .img-legenda {
+          width: 100%;
+          margin: 0;
+          padding: 0;
+
+          .img-legenda-info {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin-top: 20px;
+            background-color: #111117;
+            border-radius: 12px;
+            padding: 20px;
+            color: #efefef;
+            line-height: 1.8;
+            font-size: 1rem;
+
+            span::before {
+              display: inline-block;
+              content: '🎬';
+              transform: scale(0.7);
+              margin-right: 5px;
+              position: relative;
+              top: -1px;
+            }
+          }
+        }
+      }
+
+      .modal-exclude-icon {
+        position: absolute;
+        top: 0.6rem;
+        right: 1.2rem;
+        z-index: 3;
+        font-size: 30px;
+        cursor: pointer;
+        background: transparent;
+        color: #841010;
+        outline: none;
+      }
+    }
+  }
+}

@@ -1,9 +1,16 @@
 import { useEffect } from 'react';
-import useFetch from './Hooks/useFetch'; // Importe o hook diretamente
 import { IoCloseCircleOutline } from 'react-icons/io5';
+import Loading from '../assets/Loading/Loading';
 
-const FavoriteMovieItem = ({ movieTitle, omdbKey, handleFavExclude }) => {
-  const { request, fetchData, loading, error } = useFetch();
+import useFetch from './Hooks/useFetch';
+
+const FavoriteMovieItem = ({
+  movieTitle,
+  omdbKey,
+  handleFavExclude,
+  loading,
+}) => {
+  const { request, fetchData, error } = useFetch();
 
   useEffect(() => {
     if (movieTitle) {
@@ -11,7 +18,8 @@ const FavoriteMovieItem = ({ movieTitle, omdbKey, handleFavExclude }) => {
     }
   }, [movieTitle, omdbKey, request]);
 
-  if (loading) return <li>Carregando...</li>;
+  // ver erro
+  if (loading) return <Loading />;
   if (error) return <li>Erro ao carregar filme.</li>;
   if (!fetchData) return null;
 
@@ -28,7 +36,7 @@ const FavoriteMovieItem = ({ movieTitle, omdbKey, handleFavExclude }) => {
       </figcaption>
       <IoCloseCircleOutline
         onClick={() => handleFavExclude(fetchData.Title)}
-        className="icon"
+        className="myFavorite-exclude-icon"
       />
     </li>
   );
