@@ -9,19 +9,11 @@ import { IoCloseCircleOutline } from 'react-icons/io5';
 
 import '../styles/modal.scss';
 
-const Modal = ({ fetchData }) => {
-  // Contexto global
+const Modal = ({ fetchData, favMovies, setFavMovies }) => {
   const {
     userInput,
-    favMovies,
-    setFavMovies,
-    isFavIconActive,
-    setIsFavIconActive,
   } = useContext(GlobalContext);
   const navigate = useNavigate();
-
-  // Estado animação botões Fav
-  useEffect(() => setIsFavIconActive((prev) => !prev), [favMovies]);
 
   const handleFavMovie = (e) => {
     if (e && typeof e.preventDefault === 'function') {
@@ -52,15 +44,15 @@ const Modal = ({ fetchData }) => {
                   alt={fetchData.Title}
                   className="img-imagem"
                 />
-                {!isFavIconActive ? (
-                  <IoHeartOutline
-                    onClick={(e) => handleFavMovie(e)}
-                    className="modal-heart-icon"
-                  />
-                ) : (
+                {favMovies.some((favMovie) => favMovie === fetchData.Title) ? (
                   <IoHeartSharp
                     onClick={() => handleFavExclude(fetchData.Title)}
                     className="modal-heart-icon-active"
+                  />
+                ) : (
+                  <IoHeartOutline
+                    onClick={(e) => handleFavMovie(e)}
+                    className="modal-heart-icon"
                   />
                 )}
               </div>

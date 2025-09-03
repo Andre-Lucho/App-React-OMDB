@@ -1,0 +1,68 @@
+.img-container {
+  gap: 100px;
+}
+
+
+.fav-img-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 350px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  background-color: #efefef;
+  text-align: center;
+}
+
+.fav-img-imagem {
+  display: block;
+  max-width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.fav-img-legenda {
+  padding: 5px;
+  text-align: center;
+  font-size: 0.8em;
+  color: #282828;
+  font-weight: bold;
+}
+
+.fav-dash-button {
+  height: 30px;
+  width: 90px;
+  font-size: 11px;
+  background: linear-gradient(145deg, #1a1919, #171717);
+  -webkit-box-shadow: -1px -5px 15px #41465b, 5px 5px 15px #41465b,
+    inset 5px 5px 10px #212121, inset -5px -5px 10px #212121;
+  box-shadow: -1px -1px 10px #41465b, 1px 5px 10px #41465b,
+    inset 5px 5px 10px #212121, inset -5px -5px 10px #212121;
+}
+
+.fav-dash-heart-icon,
+.fav-dash-heart-icon-active {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  z-index: 2;
+  cursor: pointer;
+  background: transparent;
+  outline: none;
+  color: #ba1515;
+}
+
+.favorite-exclude-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  z-index: 2;
+  cursor: pointer;
+  background: transparent;
+  outline: none;
+  color: #ba1515;
+}

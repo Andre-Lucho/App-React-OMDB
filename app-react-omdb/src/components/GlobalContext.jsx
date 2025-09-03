@@ -7,7 +7,6 @@ export const GlobalContext = createContext();
 export const GlobalStorage = ({ children }) => {
   const [userInput, setUserInput] = useState('');
   const [favMovies, setFavMovies] = useLocalStorage('movie', []);
-  const [isFavIconActive, setIsFavIconActive] = useState(false);
 
   const omdbKey = import.meta.env.VITE_API_KEY;
 
@@ -32,8 +31,6 @@ export const GlobalStorage = ({ children }) => {
         fetchData,
         setError,
         error,
-        setIsFavIconActive,
-        isFavIconActive,
         response,
         jsonReturn,
         loading,

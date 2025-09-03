@@ -8,7 +8,7 @@ import '../../styles/modal.scss';
 
 const ModalContainer = () => {
   // Contexto global
-  const { request, fetchData, omdbKey, loading, error } =
+  const { request, fetchData, omdbKey, loading, error, favMovies, setFavMovies } =
     useContext(GlobalContext);
 
   // React-router
@@ -48,7 +48,7 @@ const ModalContainer = () => {
 
   return (
     <div className="modal-container">
-      <Modal fetchData={fetchData} />;
+      <Modal fetchData={fetchData} favMovies={favMovies} setFavMovies={setFavMovies} />;
     </div>
   );
 };

@@ -30,7 +30,7 @@ html {
 }
 
 body {
-  background-color: #121821;
+  background-color: rgba(18, 24, 33, 0.8);
   background-image: url(../assets/fundo.webp);
   color: rgb(55, 55, 55);
   font-size: 1.2rem;
@@ -38,6 +38,7 @@ body {
   height: 100vh;
   margin: 0 auto;
   backdrop-filter: blur(0.6px);
+  backdrop-filter: brightness(0.6);
 }
 
 body,

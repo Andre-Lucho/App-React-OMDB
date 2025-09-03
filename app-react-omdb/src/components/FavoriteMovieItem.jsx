@@ -1,44 +1,25 @@
-import { useEffect } from 'react';
+import '../styles/favoriteMovieItem.scss';
 import { IoCloseCircleOutline } from 'react-icons/io5';
-import Loading from '../assets/Loading/Loading';
 
-import useFetch from './Hooks/useFetch';
-
-const FavoriteMovieItem = ({
-  movieTitle,
-  omdbKey,
-  handleFavExclude,
-  loading,
-}) => {
-  const { request, fetchData, error } = useFetch();
-
-  useEffect(() => {
-    if (movieTitle) {
-      request(`http://www.omdbapi.com/?apikey=${omdbKey}&t=${movieTitle}`);
-    }
-  }, [movieTitle, omdbKey, request]);
-
-  // ver erro
-  if (loading) return <Loading />;
-  if (error) return <li>Erro ao carregar filme.</li>;
-  if (!fetchData) return null;
+const FavoriteMovieItem = ({ movieData, handleFavExclude }) => {
+  if (!movieData) return null;
 
   return (
-    <li className="img-container">
+    <div className="fav-img-container">
       <img
-        src={fetchData.Poster}
-        alt={fetchData.Title}
-        className="img-imagem"
+        src={movieData.Poster}
+        alt={movieData.Title}
+        className="fav-img-imagem"
       />
-      <figcaption className="img-legenda">
-        <span>{fetchData.Title}</span>
-        <p>{fetchData.Year}</p>
+      <figcaption className="fav-img-legenda">
+        <span>{movieData.Title}</span>
+        <p>{movieData.Year}</p>
       </figcaption>
       <IoCloseCircleOutline
-        onClick={() => handleFavExclude(fetchData.Title)}
-        className="myFavorite-exclude-icon"
+        onClick={() => handleFavExclude(movieData.Title)}
+        className="favorite-exclude-icon"
       />
-    </li>
+    </div>
   );
 };
 

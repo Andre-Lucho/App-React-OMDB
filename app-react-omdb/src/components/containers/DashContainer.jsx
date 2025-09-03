@@ -16,8 +16,6 @@ const DashContainer = () => {
     error,
     favMovies,
     setFavMovies,
-    isFavIconActive,
-    setIsFavIconActive,
     omdbKey,
   } = useContext(GlobalContext);
 
@@ -68,8 +66,6 @@ const DashContainer = () => {
         favMovies={favMovies}
         error={error}
         loading={loading}
-        isFavIconActive={isFavIconActive}
-        setIsFavIconActive={setIsFavIconActive}
       />
       <Footer
         fetchData={fetchData}

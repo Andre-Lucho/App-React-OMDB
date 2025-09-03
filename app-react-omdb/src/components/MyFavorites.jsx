@@ -1,10 +1,32 @@
 import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from './GlobalContext';
 import FavoriteMovieItem from './FavoriteMovieItem';
+import Loading from '../assets/Loading/Loading';
+import '../styles/dashboard.scss';
 
 const MyFavorites = () => {
-  const { favMovies, setFavMovies, loading, omdbKey } =
-    useContext(GlobalContext);
+  const { favMovies, setFavMovies, omdbKey } = useContext(GlobalContext);
+  const [moviesData, setMoviesData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchAllMovies = async () => {
+      setLoading(true);
+      const moviePromises = favMovies.map(async (title) => {
+        const response = await fetch(`http://www.omdbapi.com/?apikey=${omdbKey}&t=${title}`);
+        return await response.json();
+      });
+      const movies = await Promise.all(moviePromises);
+      setMoviesData(movies);
+      setLoading(false);
+    };
+
+    if (favMovies.length > 0) {
+      fetchAllMovies();
+    } else {
+      setMoviesData([]);
+    }
+  }, [favMovies, omdbKey]);
 
   const handleFavExclude = (movieTitle) => {
     if (favMovies && favMovies.length > 0) {
@@ -13,27 +35,29 @@ const MyFavorites = () => {
     }
   };
 
-  if (favMovies.length == 0) {
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (moviesData.length === 0) {
     return (
       <p className="no-omdb-input-container">
         Você ainda não tem filmes favoritos.
       </p>
     );
   }
+
   return (
     <div className="dashboard-container">
       <ul className="galery-container">
-        {favMovies?.length > 0 &&
-          favMovies.map((title) => (
+        {moviesData.map((movie) => (
+          <li key={movie.imdbID}>
             <FavoriteMovieItem
-              key={title}
-              movieTitle={title}
-              omdbKey={omdbKey}
+              movieData={movie}
               handleFavExclude={handleFavExclude}
-              loading={loading}
             />
-          ))}
-        ;
+          </li>
+        ))}
       </ul>
     </div>
   );
