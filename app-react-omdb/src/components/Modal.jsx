@@ -10,9 +10,7 @@ import { IoCloseCircleOutline } from 'react-icons/io5';
 import '../styles/modal.scss';
 
 const Modal = ({ fetchData, favMovies, setFavMovies }) => {
-  const {
-    userInput,
-  } = useContext(GlobalContext);
+  const { userInput } = useContext(GlobalContext);
   const navigate = useNavigate();
 
   const handleFavMovie = (e) => {
@@ -36,7 +34,7 @@ const Modal = ({ fetchData, favMovies, setFavMovies }) => {
           <>
             <SpotlightCard
               className="custom-spotlight-card"
-              spotlightColor="rgba(197, 191, 254, 0.1)"
+              spotlightColor="rgba(208, 203, 255, 0.2)"
             >
               <div className="modal-image-wrapper">
                 <img

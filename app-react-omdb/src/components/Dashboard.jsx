@@ -51,7 +51,7 @@ const Dashboard = ({ fetchData, setFavMovies, favMovies }) => {
             <SpotlightCard
               key={i}
               className="custom-spotlight-card"
-              spotlightColor="rgba(197, 191, 254, 0.2)"
+              spotlightColor="rgba(208, 203, 255, 0.3)"
             >
               <li className="img-container">
                 <img
